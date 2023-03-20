@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--针对所有网域是否允许传输明文流量（true允许 false不允许）-->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
