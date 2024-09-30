@@ -1,11 +1,13 @@
 package com.onedream.onehttp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.onedream.onehttp.bean.OneHttpRequest
 import com.onedream.onehttp.bean.OneHttpResponse
+import com.onedream.onehttp.interceptor.AppHeaderInterceptor
+import com.onedream.onehttp.interceptor.LogInterceptor
 import com.onedream.onehttp.listener.OneHttpCallback
 
 class MainActivity : AppCompatActivity() {
@@ -18,14 +20,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestNetwork(){
+    private fun requestNetwork() {
         //
         val request = OneHttpRequest.Builder()
-            .url("http://120.78.120.117/github_demo_api/update_version.php")
+            .url("http://120.78.120.117/other/github_demo_api/update_version.php")
+//            .header(AppTokenService.getTokenHeaderName(), AppTokenService.getTokenHeaderValue())//添加头部，也可以使用拦截器AppHeaderInterceptor的方式
             .get()
             .build()
         //
         val httpClient = OneHttpClient.Builder()
+            .addInterceptor(AppHeaderInterceptor())//添加头部拦截器，携带token
             .addInterceptor(LogInterceptor())//添加打印日志拦截器
             .build()
         //

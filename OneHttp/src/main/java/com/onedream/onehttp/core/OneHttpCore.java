@@ -1,5 +1,6 @@
 package com.onedream.onehttp.core;
 
+import com.onedream.onehttp.bean.OneHttpHeaders;
 import com.onedream.onehttp.bean.OneHttpRequest;
 import com.onedream.onehttp.bean.OneHttpResponse;
 
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class OneHttpCore {
 
@@ -18,6 +20,14 @@ public class OneHttpCore {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod(request.getMethod());  //声明请求方式
         conn.setConnectTimeout(request.getConnectTimeout()); //设置连接超时
+        //设置头部
+        OneHttpHeaders headers = request.headers();
+        if(null != headers){
+            for (int i = 0, size = headers.size(); i < size; i++) {
+                conn.setRequestProperty(headers.name(i), headers.value(i));
+            }
+        }
+        //
         if (conn.getResponseCode() == 200) {
             inputStream = conn.getInputStream(); //得到服务端传回来的数据，相对客户为输入流
         } else {
