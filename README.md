@@ -4,7 +4,7 @@
  private fun requestNetwork(){
         //
         val request = OneHttpRequest.Builder()
-            .url("http://120.78.120.117/github_demo_api/update_version.php")
+            .url("http://120.78.120.117/other/github_demo_api/update_version.php")
             .get()
             .build()
         //
